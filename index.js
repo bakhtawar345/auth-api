@@ -10,9 +10,16 @@ app.use(express.json());
 
 const authRoutes = require('./routes/auth'); //importing route files
 app.use('/auth', authRoutes); // any request that starts with /auth is handed over to authRoutes
+//when a request comes in starting with this url, send it to this router to handle
 
 const protectedRoutes = require('./routes/protected');
 app.use('/api', protectedRoutes);
+
+const userRoutes = require('./routes/users');
+app.use('/users', userRoutes);
+
+const taskRoutes = require('./routes/tasks')
+app.use('/tasks', taskRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('Connected to MongoDB'))

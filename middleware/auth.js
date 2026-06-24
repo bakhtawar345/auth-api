@@ -1,6 +1,8 @@
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken'); //need to verify incoming tokens
 
 const verifyToken = (req, res, next) =>{
+    // next() passes the request along to the actual route, if u dont call
+    // the request gets stuck
     const token = req.headers['authorization'];
 
     if (!token){
@@ -8,8 +10,10 @@ const verifyToken = (req, res, next) =>{
     }
 
     try {
-        const decoded= jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded;
+        const decoded= jwt.verify(token, process.env.JWT_SECRET); 
+        // verifies if token was made with the secret key and has it expired
+        req.user = decoded; //attatch the data to the request object so the 
+        //route can access it and know who's making the request
         next();
     } catch (err) {
         return res.status(401).json({ message: 'Invalid token'});

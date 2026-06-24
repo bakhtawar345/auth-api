@@ -3,7 +3,8 @@ const express = require('express');
 const router = express.Router(); //mini appp object
 const User = require('../models/User'); //User model
 
-router.post('/signup', async(req, res) => { // req is incoming requests, res is what is sent back
+router.post('/signup', async(req, res) => { 
+    // req is incoming requests, res is what is sent back
     const { username, password, role} = req.body; //garb the username and password from wtv the user sends
     
     const existingUser = await User.findOne({ username});
